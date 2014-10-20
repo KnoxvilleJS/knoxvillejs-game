@@ -11,19 +11,34 @@
 
     window.onload = function() {
 
-        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create });
+        var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+        var bullet;
+        var ship;
 
         function preload () {
 
             game.load.image('ship', 'SpaceShipSmall.png');
+            game.load.image('projectile', 'projectile.png');
 
         }
 
         function create () {
 
-            var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'ship');
-            logo.anchor.setTo(0.5, 0.5);
+            ship = game.add.sprite(game.world.centerX, game.world.centerY, 'ship');
+            ship.anchor.setTo(0.5, 0.5);
 
+
+
+
+        }
+
+        function update () {
+
+            if (this.game.input.activePointer.isDown) {
+               bullet = game.add.sprite(ship.x, ship.y - 100, 'projectile');
+               bullet.anchor.setTo(0.5, 0.5);
+            }
         }
 
     };
